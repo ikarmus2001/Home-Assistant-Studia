@@ -33,23 +33,26 @@ void loop() {
     water_level = analogRead(WATER_LVL_OUT);  // read the analog value from water sensor
     digitalWrite(WATER_LVL_VCC, LOW);  // turn the water sensor OFF (reduces corrosion rate)
 
+    delay(2000);
+
     heat_index = 0;
     humidity = dht_sensor.readHumidity();
-    temperature = dht_sensor.readTemperature(isFahrenheit=false);
+    temperature = dht_sensor.readTemperature();
 
-    if (isnan(h) || isnan(t) || isnan(f)) {
+    if (isnan(humidity) || isnan(temperature)) {
         Serial.println(F("Failed to read from DHT sensor!"));
         return;
     }
     else{
-        heat_index = dht.computeHeatIndex(temperature, humidity, isFahrenheit=false);
+        heat_index = dht_sensor.computeHeatIndex(temperature, humidity);
     }
 
-    Serial.print("Water level: " + tostring(water_level) + "\n");
-    Serial.print("\n---DHT outputs--- \n");
-    Serial.print("Temperature: " + tostring(temperature) + "\n");
-    Serial.print("Humidity: " + tostring(temperature) + "\n");
-    Serial.print("Heat index: " + tostring(heat_index) + "\n");
+    Serial.println("Water level: " + String(water_level));
+    Serial.println(F("---DHT outputs---"));
+    Serial.println("Temperature: " + String(temperature));
+    Serial.println("Humidity: " + String(temperature));
+    Serial.println("Heat index: " + String(heat_index));
+    Serial.println();
 
     delay(1000);
 
