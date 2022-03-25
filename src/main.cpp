@@ -1,6 +1,15 @@
 #include <Arduino.h>
 #include <DHT.h>
 
+
+#define NUM_LEDS      100
+#define LED_TYPE   WS2811
+#define COLOR_ORDER   GRB
+#define DATA_PIN        3
+//#define CLK_PIN       4
+#define VOLTS          12
+#define MAX_MA       4000
+
 // Analog pins
 #define WATER_LVL_OUT   A5
 
